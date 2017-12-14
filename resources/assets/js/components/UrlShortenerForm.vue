@@ -94,9 +94,6 @@
             toggleExpanded(){
                 this.expanded = ! this.expanded;
             }
-        },
-        components: {
-            InputTag
         }
     }
 </script>
