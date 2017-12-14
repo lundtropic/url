@@ -2,7 +2,7 @@
     <div>
         <div class="panel">
             <div class="panel-heading">
-                Processed URLs <span class="pull-right"><a href="http://goo.gl/">Goo.gl Dashboard</a></span>
+                Processed URLs <span class="pull-right"><a href="http://goo.gl/" target="_blank">Goo.gl Dashboard</a></span>
             </div>
             <div class="panel-body">
                 <div v-if="! urls.length" class="text-center">
