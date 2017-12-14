@@ -4,16 +4,14 @@
 
 ``git clone https://github.com/lundtropic/url.git
 mv .env.example .env
-touch database.sqlite
+touch database/database.sqlite
 composer install && npm install
 php artisan key:generate
 php artisan migrate --seed``
 
 ### .env
 
-Ensure you have set the absolute path of the database.sqlite file in addition to the required Google API credentials.
-
-If you would like to use user credentials other than those defined in `config/seed.php`, define those in the .env file as well.
+If you would like to use user credentials other than those defined in `config/seed.php`, define those in the environment file.
 
 ## Purpose
 
