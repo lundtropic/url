@@ -11,8 +11,6 @@ window.Vue = require('vue');
 
 import Notifications from 'vue-notification'
 Vue.use(Notifications);
-import Vuetable from 'vuetable-2';
-Vue.use(Vuetable);
 
 
 

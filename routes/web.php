@@ -36,6 +36,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 });
 
+Route::get('/', function(){
+    if(\Auth::check()){
+        return redirect()->route('home');
+    }else{
+        return redirect()->route('login');
+    }
+});
 
 Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
 Route::post('login', ['uses' => 'Auth\LoginController@login']);
