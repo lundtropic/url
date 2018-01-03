@@ -17,13 +17,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index']);
 
     Route::get('/test', function(){
-        $auth = App\GoogleAuth::find(1);
+        $collection = \App\Collection::first();
 
-        $api = new App\Services\GoogleUrlShortener($auth);
-
-        $url = $api->shorten('https://www.southhonda.com?utm_source=house-list&utm_medium=email&utm_campaign=sales&utm_term=SESB&utm_content=12-7-17');
-
-        dd($url);
+        dd($collection->urls);
 
     });
 

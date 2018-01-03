@@ -15,7 +15,7 @@ class GoogleUrlShortener
     }
 
     public function shorten($url){
-        $data = $this->api->get($url);
+        $data = $this->api->post($url);
 
         return [
             'short' => $data['id'],

@@ -12,8 +12,9 @@
     "devDependencies": {
         "axios": "^0.17",
         "bootstrap-sass": "^3.3.7",
-        "collect.js": "^4.0.0",
+        "collect.js": "^4.0.1",
         "cross-env": "^5.1",
+        "get-hrefs": "^2.0.0",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",

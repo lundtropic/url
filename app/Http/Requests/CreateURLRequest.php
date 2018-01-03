@@ -25,7 +25,9 @@ class CreateURLRequest extends FormRequest
     {
         return [
             'auth' => 'required|exists:google_auths,google_id',
-            'urls' => 'required|array'
+            'collection_name' => 'string',
+            'urls' => 'required|array',
+            'name' => 'string|nullable'
         ];
     }
 }

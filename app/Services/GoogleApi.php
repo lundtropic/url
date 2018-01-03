@@ -28,15 +28,39 @@ class GoogleApi
         $this->refreshToken();
 
 //        try {
+            $response = $this->client->get($url);
+//        } catch (RequestException $e) {
+//            dump($url);
+//            dump(Psr7\str($e->getRequest()));
+//            if ($e->hasResponse()) {
+//                dump(Psr7\str($e->getResponse()));
+//            }
+//
+//            die();
+//        }
+
+        $body = $response->getBody();
+        $stringBody = (string) $body;
+        $data = json_decode($stringBody, true);
+
+        return $data;
+    }
+
+    public function post($url)
+    {
+        $this->refreshToken();
+
+//        try {
             $response = $this->client->post('url', [
                 'json' => [
                     'longUrl' => $url
                 ]
             ]);
 //        } catch (RequestException $e) {
-//            dump(Psr7\str($e->getRequest()));
+//            var_dump($url);
+//            var_dump(Psr7\str($e->getRequest()));
 //            if ($e->hasResponse()) {
-//                dump(Psr7\str($e->getResponse()));
+//                var_dump(Psr7\str($e->getResponse()));
 //            }
 //
 //            die();

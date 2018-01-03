@@ -1,5 +1,6 @@
 
 window._ = require('lodash');
+window.collect = require('collect.js');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -39,6 +40,7 @@ if (token) {
 
 window.collect = require('collect.js');
 window.validate = require("validate.js");
+window.htmlHrefs = require('get-hrefs');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

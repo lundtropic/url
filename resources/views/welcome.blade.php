@@ -23,6 +23,12 @@
                 window.google_auth = false;
             @endif
             window.auths = {!! json_encode($auths) !!};
+
+            @if(\Cache::get('analytics_update') === null)
+                window.last_update = 'Never';
+            @else
+                window.last_update = {!! json_encode(\Cache::get('analytics_update')->diffForHumans()) !!};
+            @endif
         </script>
 
 @endpush
