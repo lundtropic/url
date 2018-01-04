@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateURLRequest extends FormRequest
+class EditURLRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +27,7 @@ class CreateURLRequest extends FormRequest
     public function rules()
     {
         return [
-            'auth' => 'required|exists:google_auths,google_id',
-            'urls' => 'required|array',
-            'name' => 'string|nullable'
+            'name' => 'string|required'
         ];
     }
 }

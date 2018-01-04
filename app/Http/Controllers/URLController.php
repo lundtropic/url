@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateURLRequest;
+use App\Http\Requests\DestroyURLRequest;
+use App\Http\Requests\EditURLRequest;
 use App\Services\GoogleUrlAnalytics;
 use App\URL;
 use App\GoogleAuth;
@@ -77,5 +79,23 @@ class URLController extends Controller
 
 
         return response()->json(['data' => $return]);
+    }
+
+    public function update(Collection $collection, EditURLRequest $request)
+    {
+        $collection->name = request('name');
+        $collection->save();
+
+        return response()->json(['data' => $collection]);
+    }
+
+    public function destroy(Collection $collection, DestroyURLRequest $request)
+    {
+        foreach($collection->urls as $url){
+            $url->delete();
+        }
+        $collection->delete();
+
+        return response()->json(['data' => []]);
     }
 }

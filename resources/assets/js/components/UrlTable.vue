@@ -11,7 +11,25 @@
                         {{ collection.name !== null ? collection.name : collection.created_at }}
                     </option>
                 </select>
-                <div v-if="selectedCollection !== ''">
+                <div v-if="selectedCollection !== null">
+                    <div class="row" style="margin:10px;">
+                        <div class="col-lg-12">
+                            <div class="pull-right">
+                                <div class="form-inline">
+                                    <div class="form-group" v-if="editing">
+                                        <input type="text" class="form-control" v-model="selectedCollection.name">
+                                        <button type="button" class="btn btn-primary"
+                                                :disabled="selectedCollection.name.length < 1"
+                                                @click="submitEdit"
+                                        >Save</button>
+                                        <button type="button" class="btn btn-default" @click="cancelEdit">X</button>
+                                    </div>
+                                    <button class="btn btn-info" v-if="!editing" @click="startEdit">Rename</button>
+                                    <button class="btn btn-danger" @click="startDelete">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table table-striped table-hover table-condensed">
                         <thead>
                         <tr>
@@ -65,7 +83,9 @@
         data() {
             return {
                 collections: [],
-                selectedCollection: '',
+                selectedCollection: null,
+                editing: false,
+                previousName: '',
                 lastUpdate: null
             }
 
@@ -87,13 +107,72 @@
                     item['totals']['day'] = collect.sum('day');
                     item['totals']['two_hours'] = collect.sum('two_hours');
                 });
+
+                if(this.selectedCollection !== null){
+                    this.selectedCollection = collect(this.collections).where('id', this.selectedCollection.id).first();
+                }
             }
         },
         methods: {
             reload() {
-                console.log('hello');
                 axios.get('/urls/list')
                     .then((response) => this.collections = response.data.data);
+            },
+            startEdit() {
+                this.editing = true;
+                this.previousName = this.selectedCollection.name;
+            },
+            cancelEdit() {
+                this.selectedCollection.name = this.previousName;
+                this.previousName = '';
+                this.editing = false;
+            },
+            submitEdit() {
+                axios.post('/urls/update/' + this.selectedCollection.id, {'name': this.selectedCollection.name})
+                    .then((response) => this.successEdit(response.data.data))
+                    .catch((response) => this.errorEdit(response));
+            },
+            successEdit(data) {
+                this.reload();
+                this.previousName = '';
+                this.editing = false;
+
+                this.$notify({
+                    type: 'success',
+                    text: 'Collection renamed'
+                });
+            },
+            errorEdit(response) {
+                this.$notify({
+                    type: 'danger',
+                    text: 'Couldn\'t do that for some reason. U sux Joel.'
+                });
+                this.previousName = '';
+                this.editing = false;
+            },
+            startDelete() {
+                let r = confirm('U sure bro?!');
+                if(r === true){
+                    axios.post('/urls/destroy/' + this.selectedCollection.id)
+                        .then((response) => this.successDelete())
+                        .catch((response) => this.errorDelete());
+                }
+            },
+            successDelete() {
+                this.reload();
+                this.selectedCollection = null;
+                this.$notify({
+                    type: 'success',
+                    text: 'Collection deleted.'
+                });
+            },
+            errorDelete() {
+                this.$notify({
+                    type: 'danger',
+                    text: 'Couldn\'t do that for some reason. U sux Joel.'
+                });
+                this.previousName = '';
+                this.editing = false;
             }
         },
         filters: {

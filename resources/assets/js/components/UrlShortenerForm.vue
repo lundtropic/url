@@ -155,7 +155,7 @@
                     .catch((error) => {
                         this.$notify({
                             type: 'error',
-                            text: 'Could not complete request.'
+                            text: 'Couldn\'t do that for some reason. U sux Joel.'
                         });
                         this.isLoading = false;
                     });

@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/urls/store', ['uses' => 'URLController@store']);
     Route::get('/urls/list', ['uses' => 'URLController@index']);
+    Route::post('/urls/update/{collection}', ['uses' => 'URLController@update']);
+    Route::post('/urls/destroy/{collection}', ['uses' => 'URLController@destroy']);
     Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 });
 
